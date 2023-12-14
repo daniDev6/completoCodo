@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch API Example</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+
+<body>
+    <div id="app">
+
+        <nav-barr></nav-barr>
+        <p v-if="loading">Loading...</p>
+        <div v-else>
+            <p v-if="error">Error: {{ error }}</p>
+
+            <div v-else class="product-container">
+
+                <ul class="card-product" v-for="posts in post" :key="posts.id">
+                    <li class="card-title">{{posts.nombre }}</li>
+                    <li class="card-img-container">
+                        <img :src="posts.imagen" :alt="posts.nombre">
+                        <div class="verMas">
+                            <button class="btn btn-primary" @click="ir(posts.id)">ver mas</button>
+                        </div>
+                    </li>
+                    <li class="card-price">{{posts.precio }}</li>
+                    <li class="card-btn"><button class="btn btn-primary">Comprar</button>
+                        <button class="btn btn-info">+</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <footer-com></footer-com>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js "></script>
+    <script src="./components/componentes.js"></script>
+</body>
+
+</html>
+
