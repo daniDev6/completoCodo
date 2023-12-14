@@ -6,15 +6,18 @@ if(localStorage.getItem('categoria')===null){
     categoria=localStorage.getItem('categoria')
     }
 
-    if(localStorage.getItem('id') == null){
+    let id
+    if (localStorage.getItem('id') == null) {
         localStorage.clear();
-        id=1;
-    }else{
-        id=localStorage.getItem('id');
+        id = 1;
+    } else {
+        id = localStorage.getItem('id');
     }
-
-const API_URL_CAT = `http://127.0.0.1:5000/productos/categoria/${categoria}`;
-const API_URL=`http://127.0.0.1:5000/productos/`
+    
+//const API_URL_CAT = `http://127.0.0.1:5000/productos/categoria/${categoria}`;
+const API_URL_CAT = `https://danidev6.pythonanywhere.com/productos/categoria/${categoria}`;
+//const API_URL=`http://127.0.0.1:5000/productos/`
+const API_URL=`https://danidev6.pythonanywhere.com/productos/`
 const app=Vue.createApp({
     el: '#app',
     data() {
@@ -81,14 +84,29 @@ const app=Vue.createApp({
                 localStorage.setItem('id', id);
             }
             localStorage.setItem('id', id);
-            window.location.href = "../paginas/producto.html";
+            // window.location.href = "../paginas/producto.html";
 
         }
     },
 });
 app.component('nav-barr', {
     template: `
-    <header class="site-header"><label for="check">|||</label><input type="checkbox" id="check"><nav class="barra-celu"><a href="./login.html">Login</a><a href="../index.html">Inicio</a><a href="./nosotros.html">Nosotros</a><a href="../todos.html.html">Productos</a></nav><nav class="barra-pc"><a href="./login.html">Login</a><a href="../index.html">Inicio</a><a href="./nosotros.html">Nosotros</a><a href="../todos.html">Productos</a></nav></header>`
+    <header class="site-header">
+        <label for="check">|||</label>
+        <input type="checkbox" id="check">
+        <nav class="barra-celu">
+            <a href="./login.html">Login</a>
+            <a href="../index.html">Inicio</a>
+            <a href="./nosotros.html">Nosotros</a>
+            <a href="./todos.html">Productos</a>
+        </nav>
+        <nav class="barra-pc">
+            <a href="./login.html">Login</a>
+            <a href="../index.html">Inicio</a>
+            <a href="./nosotros.html">Nosotros</a>
+            <a href="./todos.html">Productos</a>
+        </nav>
+    </header>`
 });
 
 app.component('footer-com', {

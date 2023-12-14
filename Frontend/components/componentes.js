@@ -1,4 +1,4 @@
-
+let id
 if (localStorage.getItem('id') == null) {
     localStorage.clear();
     id = 1;
@@ -7,7 +7,9 @@ if (localStorage.getItem('id') == null) {
 }
 
 console.log(id);
-const API_URL = `http://127.0.0.1:5000/productos`;
+//const API_URL = `http://127.0.0.1:5000/productos`;
+const API_URL = `https://danidev6.pythonanywhere.com/productos`;
+
 const app = Vue.createApp({
     el: '#app',
     data() {
@@ -75,13 +77,29 @@ const app = Vue.createApp({
             }
             localStorage.setItem('id', id);
             window.location.href = "./paginas/producto.html";
+            console.log(id);
 
         }
     },
 });
 app.component('nav-barr', {
     template: `
-    <header class="site-header"><label for="check">|||</label><input type="checkbox" id="check"><nav class="barra-celu"><a href="./login.html">Login</a><a href="./index.html">Inicio</a><a href="./paginas/nosotros.html">Nosotros</a><a href="./todos.html.html">Productos</a></nav><nav class="barra-pc"><a href="./login.html">Login</a><a href="./index.html">Inicio</a><a href="./paginas/nosotros.html">Nosotros</a><a href="./todos.html">Productos</a></nav></header>`
+    <header class="site-header">
+        <label for="check">|||</label>
+        <input type="checkbox" id="check">
+        <nav class="barra-celu">
+            <a href="./paginas/login.html">Login</a>
+            <a href="./index.html">Inicio</a>
+            <a href="./paginas/nosotros.html">Nosotros</a>
+            <a href="./paginas/todos.html">Productos</a>
+        </nav>
+        <nav class="barra-pc">
+            <a href="./paginas/login.html">Login</a>
+            <a href="./index.html">Inicio</a>
+            <a href="./paginas/nosotros.html">Nosotros</a>
+            <a href="./paginas/todos.html">Productos</a>
+        </nav>
+    </header>`
 });
 
 app.component('footer-com', {

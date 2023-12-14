@@ -1,10 +1,19 @@
 const { createApp } = Vue
-let URL_API = 'http://127.0.0.1:5000/productos';
-createApp({
+//let URL_API = 'http://127.0.0.1:5000/productos';
+let API_URL = 'https://danidev6.pythonanywhere.com/productos';
+let id
+if (localStorage.getItem('id') == null) {
+    localStorage.clear();
+    id = 1;
+} else {
+    id = localStorage.getItem('id');
+}
+
+const app = Vue.createApp({
     data() {
         return {
             productos: [],
-            url: URL_API,
+            url: API_URL,
             // si el backend esta corriendo local  usar localhost 5000(si no lo subieron a pythonanywhere)
             // si ya lo subieron a pythonanywhere
             error: false,
@@ -15,6 +24,10 @@ createApp({
             imagen: "",
             stock: 0,
             precio: 0,
+            loading: false,
+            post: null,
+            error: null,
+            postId:null
         }
     },
     methods: {
@@ -23,6 +36,7 @@ createApp({
                 .then(response => response.json())
                 .then(data => {
                     this.productos = data;
+                    this.post=data
                     this.cargando = false
                 })
                 .catch(err => {
@@ -66,17 +80,66 @@ createApp({
                     console.error(err);
                     alert("Error al Grabar")  // puedo mostrar el error tambien
                 })
+        },
+        fetchDataId() {
+            const apiUrlId = `${API_URL}/${id}`;
+            this.error = this.postId = null;
+            this.loading = true;
+            fetch(apiUrlId)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(postId => {
+                    this.loading = false;
+                    this.postId = postId;
+                })
+                .catch(error => {
+                    this.loading = false;
+                    this.error = error.toString();
+                });
+        }
+        ,
+        ir(id) {
+            if (localStorage.getItem('id') == null) {
+                localStorage.clear();
+                localStorage.setItem('id', id);
+            } else {
+                localStorage.setItem('id', id);
+            }
+            localStorage.setItem('id', id);
+            window.location.href = "./producto.html";
+            console.log(id,'soy productos js');
+
         }
     },
     created() {
         this.fetchData(this.url)
+        this.fetchDataId()
     },
-}).mount('#app')
+})
 
 
 app.component('nav-barr', {
     template: `
-    <header class="site-header"><label for="check">|||</label><input type="checkbox" id="check"><nav class="barra-celu"><a href="./login.html">Login</a><a href="../index.html">Inicio</a><a href="./nosotros.html">Nosotros</a><a href="../todos.html.html">Productos</a></nav><nav class="barra-pc"><a href="./login.html">Login</a><a href="../index.html">Inicio</a><a href="./nosotros.html">Nosotros</a><a href="../todos.html">Productos</a></nav></header>`
+    <header class="site-header">
+        <label for="check">|||</label>
+        <input type="checkbox" id="check">
+        <nav class="barra-celu">
+            <a href="./login.html">Login</a>
+            <a href="../index.html">Inicio</a>
+            <a href="./nosotros.html">Nosotros</a>
+            <a href="./todos.html">Productos</a>
+        </nav>
+        <nav class="barra-pc">
+            <a href="./login.html">Login</a>
+            <a href="../index.html">Inicio</a>
+            <a href="./nosotros.html">Nosotros</a>
+            <a href="./todos.html">Productos</a>
+        </nav>
+    </header>`
 });
 
 app.component('footer-com', {
@@ -84,7 +147,7 @@ app.component('footer-com', {
 });
 
 
-
+app.mount('#app')
 
 let letra = []
 letra.push("a")

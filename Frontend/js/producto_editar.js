@@ -10,7 +10,10 @@ const app = Vue.createApp({
             stock: 0,
             precio: 0,
             // url:'https://fakestoreapi.com/products/category/electronics'+id,
-            url: 'https://jbelich.pythonanywhere.com/productos/' + id,
+            url: 'https://danidev6.pythonanywhere.com/productos/' + id,
+            loading: false,
+            post: null,
+            error: null,
         }
     },
     methods: {
@@ -60,7 +63,22 @@ const app = Vue.createApp({
 })
 app.component('nav-barr', {
     template: `
-    <header class="site-header"><label for="check">|||</label><input type="checkbox" id="check"><nav class="barra-celu"><a href="./login.html">Login</a><a href="../index.html">Inicio</a><a href="./nosotros.html">Nosotros</a><a href="../todos.html.html">Productos</a></nav><nav class="barra-pc"><a href="./login.html">Login</a><a href="../index.html">Inicio</a><a href="./nosotros.html">Nosotros</a><a href="../todos.html">Productos</a></nav></header>`
+    <header class="site-header">
+        <label for="check">|||</label>
+        <input type="checkbox" id="check">
+        <nav class="barra-celu">
+            <a href="./login.html">Login</a>
+            <a href="../index.html">Inicio</a>
+            <a href="./nosotros.html">Nosotros</a>
+            <a href="./todos.html">Productos</a>
+        </nav>
+        <nav class="barra-pc">
+            <a href="./login.html">Login</a>
+            <a href="../index.html">Inicio</a>
+            <a href="./nosotros.html">Nosotros</a>
+            <a href="./todos.html">Productos</a>
+        </nav>
+    </header>`
 });
 
 app.component('footer-com', {
